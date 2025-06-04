@@ -50,16 +50,32 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
    ```bash
    cp .env.example .env
    ```
+   > **Note for Windows (PowerShell):**  
+   > ```powershell
+   > Copy-Item .env.example .env
+   > ```
 
-5. **Generate application key**  
+5. **Open `.env` and set your WeatherBit API key**  
+   - In the newly created `.env`, find the line:  
+     ```dotenv
+     WEATHER_API_KEY=
+     ```  
+   - Replace it with your own key from https://www.weatherbit.io/account/create, for example:  
+     ```dotenv
+     WEATHER_API_KEY=your_real_weatherbit_key_here
+     ```  
+   - Save the file.
+
+6. **Generate application key**  
    ```bash
    php artisan key:generate
    ```
 
-6. **Create (or empty) SQLite database**  
-   ```bash
+7. **Create (or empty) SQLite database**  
+   ```powershell
    New-Item database\database.sqlite -ItemType File
    ```
+   > Or create the file manually in File Explorer under `database/database.sqlite`.
 
 ---
 
@@ -80,11 +96,12 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
    ```bash
    php artisan serve
    ```
-2. Open your browser at:  
+2. Make sure the frontend assets are built (run `npm run dev` if you need hot‑reload).  
+3. Open your browser at:  
    ```
    http://127.0.0.1:8000
    ```
-3. Use the dropdown to select Brisbane, Gold Coast, or Sunshine Coast. The 5-day forecast cards will appear.
+4. Use the dropdown to select Brisbane, Gold Coast, or Sunshine Coast. The 5-day forecast cards will appear.
 
 ### 2. Console Command
 
@@ -117,7 +134,7 @@ Any other input is considered invalid.
 ## Basic Structure
 
 - **app/Services/WeatherService.php**  
-  - Fetches and caches 5-day forecast from a third-party API.
+  - Fetches and caches 5-day forecast from a third‑party API.
 
 - **app/Console/Commands/Forecast.php**  
   - Implements `php artisan forecast`, validates cities, and prints a table.
@@ -148,12 +165,12 @@ Any other input is considered invalid.
 ## Troubleshooting
 
 - **API Key Errors**:  
-  - Verify `WEATHER_API_KEY` in `.env`.  
-  - Make sure the Base URL matches your provider’s documentation.
+  - Make sure you copied `.env.example` to `.env` and filled in `WEATHER_API_KEY` with your own key.  
+  - Verify the `WEATHER_API_URL` if you switch providers.
 
 - **Vite Build Errors**:  
   - Ensure `vite.config.js` includes `@vitejs/plugin-react`.  
-  - Check that React components are correctly imported (using `.jsx` extensions).
+  - Confirm React components are correctly imported (using `.jsx` extensions).
 
 - **Cache Issues**:  
   ```bash
@@ -164,3 +181,7 @@ Any other input is considered invalid.
   - This app uses SQLite by default. If you see DB errors, confirm `database/database.sqlite` exists.
 
 ---
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
