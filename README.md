@@ -33,7 +33,7 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
 1. **Clone the repo**  
    ```bash
    git clone https://github.com/your-username/r6-weather-app.git
-   cd r6-weather-app
+   cd r6-weather
    ```
 
 2. **Install PHP dependencies**  
@@ -58,18 +58,14 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
 
 6. **Create (or empty) SQLite database**  
    ```bash
-   touch database/database.sqlite
+   New-Item database\database.sqlite -ItemType File
    ```
 
 ---
 
 ## Build Frontend Assets
 
-- **Development (hot reload)**  
-  ```bash
-  npm run dev
-  ```
-- **Production (minified)**  
+- **Production**  
   ```bash
   npm run build
   ```
@@ -84,12 +80,11 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
    ```bash
    php artisan serve
    ```
-2. Make sure Vite is running (`npm run dev` from another terminal).  
-3. Open your browser at:  
+2. Open your browser at:  
    ```
    http://127.0.0.1:8000
    ```
-4. Use the dropdown to select Brisbane, Gold Coast, or Sunshine Coast. The 5-day forecast cards will appear.
+3. Use the dropdown to select Brisbane, Gold Coast, or Sunshine Coast. The 5-day forecast cards will appear.
 
 ### 2. Console Command
 
