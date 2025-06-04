@@ -50,6 +50,10 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
    ```bash
    copy .env.example .env
    ```
+   > **Note for Windows (PowerShell):**  
+   > ```powershell
+   > Copy-Item .env.example .env
+   > ```
 
 5. **Open `.env` and set your WeatherBit API key**  
    - In the newly created `.env`, find the line:  
@@ -73,10 +77,10 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
    ```
    > Or create the file manually in File Explorer under `database/database.sqlite`.
 
-  8. **Run migrations**  
-  ```bash
-  php artisan migrate
-  ---
+8. **Run migrations**  
+   ```bash
+   php artisan migrate
+   ```
 
 ---
 
