@@ -78,6 +78,8 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
   php artisan migrate
   ---
 
+---
+
 ## Build Frontend Assets
 
 - **Production**  
