@@ -1,61 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# R6 Weather App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel + React application that displays 5-day weather forecasts for three Queensland cities (Brisbane, Gold Coast, Sunshine Coast) in both a browser UI and a console command.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- **Web UI (React + Vite)**  
+  - Dropdown to select one of three cities  
+  - 5-day forecast cards showing Avg, Max, Min temperatures and conditions  
+  - Error message if the API call fails
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Console Command**  
+  - `php artisan forecast [City1] [City2] [...]`  
+  - Interactive mode when run without arguments  
+  - Validates city names and prints a table of 5-day Avg/Max/Min temperatures  
+  - Handles invalid city names gracefully
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Prerequisites
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- PHP ≥ 8.0  
+- Composer  
+- Node.js ≥ 16.x & npm  
+- Git (to clone the repository)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. **Clone the repo**  
+   ```bash
+   git clone https://github.com/your-username/r6-weather-app.git
+   cd r6-weather-app
+   ```
 
-### Premium Partners
+2. **Install PHP dependencies**  
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+3. **Install Node dependencies**  
+   ```bash
+   npm install
+   ```
 
-## Contributing
+4. **Copy environment file**  
+   ```bash
+   cp .env.example .env
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. **Generate application key**  
+   ```bash
+   php artisan key:generate
+   ```
 
-## Code of Conduct
+6. **Create (or empty) SQLite database**  
+   ```bash
+   touch database/database.sqlite
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## Build Frontend Assets
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+- **Development (hot reload)**  
+  ```bash
+  npm run dev
+  ```
+- **Production (minified)**  
+  ```bash
+  npm run build
+  ```
 
-## License
+---
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Running the App
+
+### 1. Web UI
+
+1. Start Laravel server:  
+   ```bash
+   php artisan serve
+   ```
+2. Make sure Vite is running (`npm run dev` from another terminal).  
+3. Open your browser at:  
+   ```
+   http://127.0.0.1:8000
+   ```
+4. Use the dropdown to select Brisbane, Gold Coast, or Sunshine Coast. The 5-day forecast cards will appear.
+
+### 2. Console Command
+
+- **Interactive mode:**  
+  ```bash
+  php artisan forecast
+  ```
+  - Prompts for city names one at a time.  
+  - Press Enter (with no input) to finish.
+
+- **Single or Multiple cities (no prompt):**  
+  ```bash
+  php artisan forecast Brisbane
+  php artisan forecast "Gold Coast" "Sunshine Coast"
+  ```
+- **Invalid city names** will display an error, e.g., “Invalid city: Perth.”
+
+---
+
+## Available Cities
+
+- Brisbane  
+- Gold Coast  
+- Sunshine Coast
+
+Any other input is considered invalid.
+
+---
+
+## Basic Structure
+
+- **app/Services/WeatherService.php**  
+  - Fetches and caches 5-day forecast from a third-party API.
+
+- **app/Console/Commands/Forecast.php**  
+  - Implements `php artisan forecast`, validates cities, and prints a table.
+
+- **routes/web.php**  
+  - Serves the React-based Blade view.
+
+- **routes/api.php**  
+  - API route: `GET /api/forecast?city={CityName}`
+
+- **resources/js/components/**  
+  - `CitySelector.jsx`, `WeatherApp.jsx`, `WeatherDisplay.jsx` (React components)
+
+- **resources/views/weather/index.blade.php**  
+  - Blade template with `<div id="root"></div>` and Vite directives.
+
+---
+
+## Design Notes
+
+- **React + Vite** for a fast, reactive frontend.  
+- **WeatherService** abstracts all Weather API calls and caching.  
+- **Console command** shares the same service to avoid duplication.  
+- **Simple caching** (10 minutes) to reduce API requests.
+
+---
+
+## Troubleshooting
+
+- **API Key Errors**:  
+  - Verify `WEATHER_API_KEY` in `.env`.  
+  - Make sure the Base URL matches your provider’s documentation.
+
+- **Vite Build Errors**:  
+  - Ensure `vite.config.js` includes `@vitejs/plugin-react`.  
+  - Check that React components are correctly imported (using `.jsx` extensions).
+
+- **Cache Issues**:  
+  ```bash
+  php artisan cache:clear
+  ```
+
+- **Database Errors**:  
+  - This app uses SQLite by default. If you see DB errors, confirm `database/database.sqlite` exists.
+
+---
