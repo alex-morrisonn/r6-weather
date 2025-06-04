@@ -32,7 +32,7 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
 
 1. **Clone the repo**  
    ```bash
-   git clone https://github.com/your-username/r6-weather-app.git
+   git clone https://github.com/alex-morrisonn/r6-weather.git
    cd r6-weather
    ```
 
@@ -48,12 +48,8 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
 
 4. **Copy environment file**  
    ```bash
-   cp .env.example .env
+   copy .env.example .env
    ```
-   > **Note for Windows (PowerShell):**  
-   > ```powershell
-   > Copy-Item .env.example .env
-   > ```
 
 5. **Open `.env` and set your WeatherBit API key**  
    - In the newly created `.env`, find the line:  
@@ -73,11 +69,14 @@ A Laravel + React application that displays 5-day weather forecasts for three Qu
 
 7. **Create (or empty) SQLite database**  
    ```powershell
-   New-Item database\database.sqlite -ItemType File
+   type nul > database\database.sqlite
    ```
    > Or create the file manually in File Explorer under `database/database.sqlite`.
 
----
+  8. **Run migrations**  
+  ```bash
+  php artisan migrate
+  ---
 
 ## Build Frontend Assets
 
