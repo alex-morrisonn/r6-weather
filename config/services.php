@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
+    
+    'weather' => [
+        'api_key' => env('WEATHER_API_KEY'),
+        'api_url' => env('WEATHER_API_URL', 'https://api.weatherbit.io/v2.0'),
+    ],
 
 ];
